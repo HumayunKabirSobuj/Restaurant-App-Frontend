@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import ModalUsage from "./ModalUsage"
+import AddCategoryModal from "./AddCategoryModal"
+import AddFoodModal from "./AddFoodModal"
 
 const categories = ["All", "Breakfast", "Lunch", "Dinner"]
 
@@ -57,17 +58,12 @@ export default function BestSellerDishes() {
         </div>
 
         {/* Action Buttons */}
-        <div>
-          <h1><ModalUsage/></h1>
+        <div className="flex flex-row items-center gap-4">
+
+          <h1><AddFoodModal/></h1>
+          <h1 ><AddCategoryModal/></h1>
         </div>
-        <div className="flex gap-3">
-          <button className="px-6 py-3 bg-emerald-600 text-white rounded-full font-medium hover:bg-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-            Add Food
-          </button>
-          <button className="px-6 py-3 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-            Add Category
-          </button>
-        </div>
+        
       </div>
 
       {/* Dishes Grid */}
