@@ -8,10 +8,15 @@ import { getCategories } from "@/services/category";
 
 // const categories = ["All", "Breakfast", "Lunch", "Dinner"]
 
+type Category = {
+  _id: string;
+  name: string;
+};
+
 export default function BestSellerDishes() {
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -59,10 +64,10 @@ export default function BestSellerDishes() {
       {/* Filter and Action Buttons */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-10 gap-6">
         {/* Category Filters */}
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-4">
           <button
             onClick={() => handleCategoryFilter("All")}
-            className={`px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
+            className={`px-6 py-2  rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
               activeCategory === "All"
                 ? "bg-gray-900 text-white shadow-lg"
                 : "bg-white text-gray-700 border-2 border-gray-200 hover:border-gray-400 hover:shadow-md"
@@ -73,14 +78,14 @@ export default function BestSellerDishes() {
           {categories.map((category) => (
             <button
               key={category._id}
-              onClick={() => handleCategoryFilter(category)}
-              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
-                activeCategory === category
+              onClick={() => handleCategoryFilter(category.name)} // ✅ এখন string পাঠাচ্ছি
+              className={`px-6 py-2  rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
+                activeCategory === category.name
                   ? "bg-gray-900 text-white shadow-lg"
                   : "bg-white text-gray-700 border-2 border-gray-200 hover:border-gray-400 hover:shadow-md"
               }`}
             >
-              {category?.name}
+              {category.name}
             </button>
           ))}
         </div>
