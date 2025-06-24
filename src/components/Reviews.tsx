@@ -57,10 +57,10 @@ export default function Reviews() {
 
   return (
     <div className="">
-      <div className="bg-white rounded-3xl overflow-hidden shadow-lg p-4">
-        <div className="grid lg:grid-cols-2 min-h-[500px]">
+      <div className="bg-white rounded-3xl overflow-hidden">
+        <div className="grid lg:grid-cols-2  justify-between gap-8">
           {/* Left Content Section */}
-          <div className="p-8 lg:p-12 flex flex-col justify-center space-y-8">
+          <div className=" flex flex-col justify-center space-y-8">
             {/* Header */}
             <div>
               <h1 className="text-xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
@@ -129,14 +129,14 @@ export default function Reviews() {
           </div>
 
           {/* Right Image Section */}
-          <div className=" flex items-center justify-center p-8">
-            <div className="transform hover:scale-105 transition-transform duration-300">
+          <div className=" flex items-center justify-center  ">
+            <div className="transform  transition-transform duration-300">
               <Image
                 src="/person.png"
                 alt="Professional Chef"
                 width={400}
                 height={500}
-                className="object-contain drop-shadow-2xl"
+                className="w-full  object-contain drop-shadow-2xl"
               />
             </div>
           </div>
