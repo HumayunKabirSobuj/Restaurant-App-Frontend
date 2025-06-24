@@ -32,7 +32,7 @@ export default function BestSellerDishes() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [foods, setFoods] = useState<Food[]>([]);
 
-  console.log(activeCategory);
+  // console.log(activeCategory);
 
   useEffect(() => {
     const fetchData = async () => {
