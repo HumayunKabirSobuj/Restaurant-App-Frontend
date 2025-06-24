@@ -1,4 +1,5 @@
 import BestSellerDishes from "@/components/BestSellerDishes";
+import Footer from "@/components/Footer";
 import PartnersSection from "@/components/PartnerSection";
 import RestaurantBanner from "@/components/RestaurantBanner";
 import Reviews from "@/components/Reviews";
@@ -17,6 +18,7 @@ const page = () => {
       <div className="container mx-auto px-4">
         <PartnersSection />
       </div>
+      <Footer/>
     </div>
   );
 };
