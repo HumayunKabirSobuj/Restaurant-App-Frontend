@@ -7,8 +7,10 @@ import { toast } from "sonner";
 import axios from "axios";
 import { getCategories } from "@/services/category";
 import { addFood } from "@/services/food";
-
-export default function AddFoodModal() {
+interface Props {
+  onFoodAdded?: () => void;
+}
+export default function AddFoodModal({ onFoodAdded }: Props) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -73,6 +75,7 @@ export default function AddFoodModal() {
       //   toast.success("Category added successfully!");
       //   console.log(result);
       toast.success(result.message || "Food added successfully!");
+      onFoodAdded?.();
       setIsAddFodd(false);
     } catch (error: any) {
       //   console.log(error);

@@ -5,8 +5,10 @@ import { useState } from "react";
 import Modal from "./Modal";
 import { toast } from "sonner";
 import { createCategory } from "@/services/category";
-
-export default function AddCategoryModal() {
+interface Props {
+  onCategoryAdded?: () => void;
+}
+export default function AddCategoryModal({ onCategoryAdded }: Props) {
   const [isAddCategory, setIsAddCategory] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
@@ -23,8 +25,10 @@ export default function AddCategoryModal() {
     try {
       const result = await createCategory(categoryData);
       //   toast.success("Category added successfully!");
-    //   console.log(result);
+      //   console.log(result);
       toast.success(result.message || "Category added successfully!");
+      onCategoryAdded?.();
+
       setIsAddCategory(false);
     } catch (error: any) {
       //   console.log(error);
@@ -33,7 +37,7 @@ export default function AddCategoryModal() {
   };
 
   return (
-    <div >
+    <div>
       {/* Trigger Buttons */}
       <div className="flex flex-wrap gap-4">
         <button

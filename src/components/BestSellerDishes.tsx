@@ -71,6 +71,19 @@ export default function BestSellerDishes() {
     setActiveCategory(category);
   };
 
+  const refetchCategories = async () => {
+    const res = await getCategories();
+    if (!(res instanceof Error)) {
+      setCategories(res.data || []);
+    }
+  };
+  const refetchFoods = async () => {
+    const res = await getFood();
+    if (!(res instanceof Error)) {
+      setFoods(res.data || []); // ✅ ঠিক কাজ করলো
+    }
+  };
+
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
       <svg
@@ -132,10 +145,10 @@ export default function BestSellerDishes() {
         {/* Action Buttons */}
         <div className="flex flex-row items-center gap-4">
           <h1>
-            <AddFoodModal />
+            <AddFoodModal onFoodAdded={refetchFoods} />
           </h1>
           <h1>
-            <AddCategoryModal />
+            <AddCategoryModal onCategoryAdded={refetchCategories} />
           </h1>
         </div>
       </div>
@@ -157,12 +170,12 @@ export default function BestSellerDishes() {
                 className="w-full h-48 object-cover"
               />
               <div className="p-4">
-                <div className="flex flex-row items-center justify-between ">
+                <div className="flex flex-row items-center justify-between mb-4">
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
                     {food.name}
                   </h3>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {food.name}
+                  <h3 className="text-sm font-semibold mb-2 bg-red-400 text-white px-2 py-1 rounded-full">
+                    {food.category.name}
                   </h3>
                 </div>
                 <div className="flex flex-row items-center justify-between space-x-1">
