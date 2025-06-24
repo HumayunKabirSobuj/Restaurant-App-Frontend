@@ -119,7 +119,7 @@ export default function BestSellerDishes() {
         <div className="flex flex-wrap gap-4 items-center justify-center">
           <button
             onClick={() => handleCategoryFilter("All")}
-            className={`px-6   rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
+            className={`px-6 lg:py-2  rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
               activeCategory === "All"
                 ? "bg-gray-900 text-white "
                 : "bg-white text-gray-700 border-2 border-gray-200 hover:border-gray-400 hover:shadow-md"
