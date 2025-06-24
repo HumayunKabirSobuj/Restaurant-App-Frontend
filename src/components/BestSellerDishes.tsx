@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -5,6 +6,7 @@ import Image from "next/image";
 import AddCategoryModal from "./AddCategoryModal";
 import AddFoodModal from "./AddFoodModal";
 import { getCategories } from "@/services/category";
+import { getFood } from "@/services/food";
 
 // const categories = ["All", "Breakfast", "Lunch", "Dinner"]
 
@@ -12,21 +14,59 @@ type Category = {
   _id: string;
   name: string;
 };
+type Food = {
+  _id: string;
+  name: string;
+  price: number;
+  image: string;
+  category: {
+    _id: string;
+    name: string;
+  };
+  __v: number;
+};
 
 export default function BestSellerDishes() {
   const [activeCategory, setActiveCategory] = useState("All");
 
   const [categories, setCategories] = useState<Category[]>([]);
+  const [foods, setFoods] = useState<Food[]>([]);
+
+  console.log(activeCategory);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const catgegoris = await getCategories();
-      //   console.log(catgegoris);
-      setCategories(catgegoris.data || []); // Assuming the API returns an object with a 'data' property
+    const fetchData = async () => {
+      try {
+        // 👉 Step 1: categoryParam তৈরি কর
+        let categoryParam;
+
+        if (activeCategory === "All") {
+          categoryParam = undefined; // সব দেখাবে
+        } else {
+          categoryParam = activeCategory; // নির্দিষ্ট category দেখাবে
+        }
+
+        // 👉 Step 2: API Call
+        const [categoriesRes, foodsRes] = await Promise.all([
+          getCategories(),
+          getFood({
+            category: categoryParam,
+          }),
+        ]);
+
+        // 👉 Step 3: State সেট কর
+        setCategories(categoriesRes.data || []);
+        setFoods(foodsRes.data || []);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
-    fetchCategories();
-  }, []);
+    // 👉 Step 4: ফাংশন কল কর
+    fetchData();
+  }, [activeCategory]); // activeCategory চেঞ্জ হলেই আবার fetch হবে
+
+  // console.log(foods);
 
   const handleCategoryFilter = (category: string) => {
     setActiveCategory(category);
@@ -78,9 +118,9 @@ export default function BestSellerDishes() {
           {categories.map((category) => (
             <button
               key={category._id}
-              onClick={() => handleCategoryFilter(category.name)} // ✅ এখন string পাঠাচ্ছি
+              onClick={() => handleCategoryFilter(category._id)} // ✅ এখন string পাঠাচ্ছি
               className={`px-6 py-2  rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
-                activeCategory === category.name
+                activeCategory === category._id
                   ? "bg-gray-900 text-white shadow-lg"
                   : "bg-white text-gray-700 border-2 border-gray-200 hover:border-gray-400 hover:shadow-md"
               }`}
@@ -104,165 +144,43 @@ export default function BestSellerDishes() {
       {/* Dishes Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Salad Fry Card */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-          <div className="mb-4">
-            <Image
-              // src="/breakfast-hero.png"
-              src="/breakfast-hero.png"
-              alt="Salad Fry"
-              width={300}
-              height={200}
-              className="w-full h-40 object-cover rounded-xl"
-            />
-          </div>
-          <div className="space-y-3">
-            <div className="flex justify-between items-start">
-              <h3 className="text-lg font-semibold text-gray-900">Salad Fry</h3>
-              <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-medium">
-                Breakfast
-              </span>
+        {foods.map((food) => {
+          return (
+            <div
+              key={food._id}
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+            >
+              <Image
+                src={food.image}
+                alt={food.name}
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <div className="flex flex-row items-center justify-between ">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    {food.name}
+                  </h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    {food.name}
+                  </h3>
+                </div>
+                <div className="flex flex-row items-center justify-between space-x-1">
+                  <div className="flex items-center space-x-1">
+                    {renderStars(5)} {/* Example rating */}
+                    <span className="text-sm text-gray-500"></span>
+                  </div>
+                  <div>
+                    <p className="text-bold mb-4 font-bold text-2xl">
+                      ${food.price.toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-1">{renderStars(5)}</div>
-              <div className="text-xl font-bold text-gray-900">$230</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Chicken Breast Card */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-          <div className="mb-4">
-            <Image
-              src="/placeholder.svg?height=200&width=200"
-              alt="Chicken Breast"
-              width={300}
-              height={200}
-              className="w-full h-40 object-cover rounded-xl"
-            />
-          </div>
-          <div className="space-y-3">
-            <div className="flex justify-between items-start">
-              <h3 className="text-lg font-semibold text-gray-900">
-                Chicken Breast
-              </h3>
-              <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-medium">
-                Lunch
-              </span>
-            </div>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-1">{renderStars(5)}</div>
-              <div className="text-xl font-bold text-gray-900">$230</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Chicken Legs Card */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-          <div className="mb-4">
-            <Image
-              src="/placeholder.svg?height=200&width=200"
-              alt="Chicken Legs"
-              width={300}
-              height={200}
-              className="w-full h-40 object-cover rounded-xl"
-            />
-          </div>
-          <div className="space-y-3">
-            <div className="flex justify-between items-start">
-              <h3 className="text-lg font-semibold text-gray-900">
-                Chicken Legs
-              </h3>
-              <span className="bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-medium">
-                Dinner
-              </span>
-            </div>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-1">{renderStars(5)}</div>
-              <div className="text-xl font-bold text-gray-900">$230</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Fruit Basic Card */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-          <div className="mb-4">
-            <Image
-              src="/placeholder.svg?height=200&width=200"
-              alt="Fruit Basic"
-              width={300}
-              height={200}
-              className="w-full h-40 object-cover rounded-xl"
-            />
-          </div>
-          <div className="space-y-3">
-            <div className="flex justify-between items-start">
-              <h3 className="text-lg font-semibold text-gray-900">
-                Fruit Basic
-              </h3>
-              <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-medium">
-                Lunch
-              </span>
-            </div>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-1">{renderStars(5)}</div>
-              <div className="text-xl font-bold text-gray-900">$230</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Veggie Salad Card */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-          <div className="mb-4">
-            <Image
-              src="/placeholder.svg?height=200&width=200"
-              alt="Veggie Salad"
-              width={300}
-              height={200}
-              className="w-full h-40 object-cover rounded-xl"
-            />
-          </div>
-          <div className="space-y-3">
-            <div className="flex justify-between items-start">
-              <h3 className="text-lg font-semibold text-gray-900">
-                Veggie Salad
-              </h3>
-              <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-medium">
-                Lunch
-              </span>
-            </div>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-1">{renderStars(5)}</div>
-              <div className="text-xl font-bold text-gray-900">$230</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Chicken Roll Card */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-          <div className="mb-4">
-            <Image
-              src="/placeholder.svg?height=200&width=200"
-              alt="Chicken Roll"
-              width={300}
-              height={200}
-              className="w-full h-40 object-cover rounded-xl"
-            />
-          </div>
-          <div className="space-y-3">
-            <div className="flex justify-between items-start">
-              <h3 className="text-lg font-semibold text-gray-900">
-                Chicken Roll
-              </h3>
-              <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-medium">
-                Breakfast
-              </span>
-            </div>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-1">{renderStars(5)}</div>
-              <div className="text-xl font-bold text-gray-900">$230</div>
-            </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
     </div>
   );
