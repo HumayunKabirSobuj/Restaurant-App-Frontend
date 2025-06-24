@@ -116,12 +116,12 @@ export default function BestSellerDishes() {
       {/* Filter and Action Buttons */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-10 gap-6">
         {/* Category Filters */}
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-4 items-center justify-center">
           <button
             onClick={() => handleCategoryFilter("All")}
-            className={`px-6 py-2  rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
+            className={`px-6   rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
               activeCategory === "All"
-                ? "bg-gray-900 text-white shadow-lg"
+                ? "bg-gray-900 text-white "
                 : "bg-white text-gray-700 border-2 border-gray-200 hover:border-gray-400 hover:shadow-md"
             }`}
           >
@@ -131,7 +131,7 @@ export default function BestSellerDishes() {
             <button
               key={category._id}
               onClick={() => handleCategoryFilter(category._id)} // ✅ এখন string পাঠাচ্ছি
-              className={`px-6 py-2  rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
+              className={`px-6 lg:py-2 rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
                 activeCategory === category._id
                   ? "bg-gray-900 text-white shadow-lg"
                   : "bg-white text-gray-700 border-2 border-gray-200 hover:border-gray-400 hover:shadow-md"
@@ -154,45 +154,58 @@ export default function BestSellerDishes() {
       </div>
 
       {/* Dishes Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Salad Fry Card */}
-        {foods.map((food) => {
-          return (
-            <div
-              key={food._id}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
-            >
-              <Image
-                src={food.image}
-                alt={food.name}
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <div className="flex flex-row items-center justify-between mb-4">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {food.name}
-                  </h3>
-                  <h3 className="text-sm font-semibold mb-2 bg-red-400 text-white px-2 py-1 rounded-full">
-                    {food.category.name}
-                  </h3>
-                </div>
-                <div className="flex flex-row items-center justify-between space-x-1">
-                  <div className="flex items-center space-x-1">
-                    {renderStars(5)} {/* Example rating */}
-                    <span className="text-sm text-gray-500"></span>
+      <div className="hidden lg:block">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
+          {/* Salad Fry Card */}
+          {foods.map((food) => {
+            return (
+              <div
+                key={food._id}
+                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+              >
+                <Image
+                  src={food.image}
+                  alt={food.name}
+                  width={400}
+                  height={300}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <div className="flex flex-row items-center justify-between mb-4">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      {food.name}
+                    </h3>
+                    <h3 className="text-sm font-semibold mb-2 bg-red-400 text-white px-2 py-1 rounded-full">
+                      {food.category.name}
+                    </h3>
                   </div>
-                  <div>
-                    <p className="text-bold mb-4 font-bold text-2xl">
-                      ${food.price.toFixed(2)}
-                    </p>
+                  <div className="flex flex-row items-center justify-between space-x-1">
+                    <div className="flex items-center space-x-1">
+                      {renderStars(5)} {/* Example rating */}
+                      <span className="text-sm text-gray-500"></span>
+                    </div>
+                    <div>
+                      <p className="text-bold mb-4 font-bold text-2xl">
+                        ${food.price.toFixed(2)}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="lg:hidden block">
+        <div className="grid grid-cols-2">
+          <Image src={"/Frame001.png"} alt="photo" height={500} width={500} />
+          <Image src={"/Frame001.png"} alt="photo" height={500} width={500} />
+          <Image src={"/Frame001.png"} alt="photo" height={500} width={500} />
+          <Image src={"/Frame001.png"} alt="photo" height={500} width={500} />
+          <Image src={"/Frame001.png"} alt="photo" height={500} width={500} />
+          <Image src={"/Frame001.png"} alt="photo" height={500} width={500} />
+        </div>
       </div>
     </div>
   );

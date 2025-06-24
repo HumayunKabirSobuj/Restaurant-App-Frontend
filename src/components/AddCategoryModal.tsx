@@ -42,7 +42,7 @@ export default function AddCategoryModal({ onCategoryAdded }: Props) {
       <div className="flex flex-wrap gap-4">
         <button
           onClick={() => setIsAddCategory(true)}
-          className="px-6 py-3 bg-black text-white rounded-full transition-colors"
+          className="px-6 lg:py-2 bg-black text-white rounded-full transition-colors"
         >
           Add Category
         </button>
