@@ -11,6 +11,11 @@ A simple restaurant management web application where you can manage food items a
 
 Built using **Next.js**, **Tailwind CSS**, and a clean modular structure.
 
+#### Live Link :
+```
+https://restaurant-app-task-01.vercel.app
+```
+
 ## Getting Started
 
 ### 1. Clone the Repository
