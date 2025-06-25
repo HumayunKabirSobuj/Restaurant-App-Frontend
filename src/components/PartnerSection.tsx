@@ -42,8 +42,8 @@ export default function PartnersSection() {
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <p className="text-sm text-gray-500 uppercase tracking-wider mb-2">PARTNERS & CLIENTS</p>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">We work with the best people</h2>
+          <p className="lg:text-base text-sm text-[#A52A2A] uppercase tracking-wider mb-2">PARTNERS & CLIENTS</p>
+          <h2 className="text-2xl lg:text-[48px] font-bold text-[#333333]">We work with the best people</h2>
         </div>
 
         

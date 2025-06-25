@@ -102,19 +102,19 @@ export default function BestSellerDishes() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-12 bg-gradient-to-br from-gray-50 to-white">
       {/* Header Section */}
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4 tracking-tight">
+      <div className="text-center  lg:mt-12 mt-5">
+        <h2 className="lg:text-[55px] text-3xl font-bold text-[#1F1F1F] mb-[16px] lg:mb-[18px] tracking-tight">
           Our Best Seller Dishes
         </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          Our fresh garden salad is a light and refreshing option. It features a
-          mix of crisp lettuce, juicy tomatoes all tossed in your choice of
+        <p className="lg:text-[25px] text-base text-gray-600  mx-auto leading-relaxed lg:mb-[68px] mb-[30px]">
+          Our fresh garden salad is a light and refreshing option. It features a <br />
+          mix of crisp lettuce, juicy tomatoes all tossed in your choice of <br />
           dressing.
         </p>
       </div>
 
       {/* Filter and Action Buttons */}
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-10 gap-6">
+      <div className="flex flex-col sm:flex-row justify-between items-center lg:mb-[71px] mb-[30px] gap-6">
         {/* Category Filters */}
         <div className="flex flex-wrap gap-4 items-center justify-center">
           <button
@@ -154,7 +154,7 @@ export default function BestSellerDishes() {
       </div>
 
       {/* Dishes Grid */}
-      <div className="hidden lg:block">
+      <div className="hidden lg:block max-w-[1299px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
           {/* Salad Fry Card */}
           {foods.map((food) => {
@@ -168,14 +168,14 @@ export default function BestSellerDishes() {
                   alt={food.name}
                   width={400}
                   height={300}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-[297px] object-cover mb-8"
                 />
-                <div className="p-4">
+                <div className="px-5 pb-5">
                   <div className="flex flex-row items-center justify-between mb-4">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h3 className="lg:text-2xl font-medium text-black mb-2">
                       {food.name}
                     </h3>
-                    <h3 className="text-sm font-semibold mb-2 bg-red-400 text-white px-2 py-1 rounded-full">
+                    <h3 className="text-[20px] font-medium  mb-2 bg-[#F03328] text-white px-[10px] py-1 rounded-full">
                       {food.category.name}
                     </h3>
                   </div>
@@ -185,7 +185,7 @@ export default function BestSellerDishes() {
                       <span className="text-sm text-gray-500"></span>
                     </div>
                     <div>
-                      <p className="text-bold mb-4 font-bold text-2xl">
+                      <p className="text-bold mb-4 font-bold text-xl text-[#000000]">
                         ${food.price.toFixed(2)}
                       </p>
                     </div>

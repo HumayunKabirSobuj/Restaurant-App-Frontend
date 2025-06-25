@@ -146,7 +146,7 @@ const teamMembers: TeamMember[] = [
 
 export default function TeamSection() {
   return (
-    <section className="w-full lg:relative">
+    <section className="w-full lg:relative max-w-[1920px] mx-auto">
       {/* Header Section */}
       <div className="bg-[#AD1519] text-white py-16 sm:py-24 lg:py-36 px-4 relative">
         <div className="max-w-6xl mx-auto text-center">

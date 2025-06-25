@@ -58,20 +58,20 @@ export default function Reviews() {
   return (
     <div className="">
       <div className="bg-white rounded-3xl overflow-hidden">
-        <div className="grid lg:grid-cols-2  justify-between gap-8">
+        <div className="grid lg:grid-cols-2  justify-between gap-8 lg:gap-[105px]">
           {/* Left Content Section */}
           <div className=" flex flex-col justify-center space-y-8">
             {/* Header */}
             <div>
-              <h1 className="text-xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-                Customer <span className="text-red-500">Feedback</span>
+              <h1 className="text-xl lg:text-[50px] text-[30px] font-bold text-[#000000]">
+                Customer <span className="text-[#A52A2A]">Feedback</span>
               </h1>
             </div>
 
             {/* Testimonial Text */}
             <div>
               <p className="text-gray-700 text-base md:text-lg leading-relaxed">
-                {currentData.text}
+                Fresh, flavorful, and just the right amount of heat. <br /> The tuna was buttery, the rice well-seasoned, and <br /> the chili mayo added a great kick. A must-try for <br /> sushi lovers.
               </p>
             </div>
 
